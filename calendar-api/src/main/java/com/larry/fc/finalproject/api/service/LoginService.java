@@ -1,6 +1,6 @@
 package com.larry.fc.finalproject.api.service;
 
-import com.larry.fc.finalproject.api.dto.LogInReq;
+import com.larry.fc.finalproject.api.dto.LoginReq;
 import com.larry.fc.finalproject.api.dto.SignUpReq;
 import com.larry.fc.finalproject.core.domain.entity.User;
 import com.larry.fc.finalproject.core.dto.UserCreateReq;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class LoginService {
-    private static final String LOGIN_SESSION_KEY = "USER_ID";
+    public static final String LOGIN_SESSION_KEY = "USER_ID";
     private final UserService userService;
 
     @Transactional
@@ -32,17 +32,17 @@ public class LoginService {
     }
 
     @Transactional
-    public void login(LogInReq logInReq, HttpSession session){
-         /*
+    public void login(LoginReq loginReq, HttpSession session) {
+        /*
         세션 값이 있으면 리턴
         없으면 비밀번호 체크 후 로그인
          */
         final Long userId = (Long) session.getAttribute(LOGIN_SESSION_KEY);
-        if (userId != null){
+        if (userId != null) {
             return;
         }
-        final Optional<User> user = userService.findPwMatchUser(logInReq.getEmail(), logInReq.getPassword());
-        if (user.isPresent()){
+        final Optional<User> user = userService.findPwMatchUser(loginReq.getEmail(), loginReq.getPassword());
+        if (user.isPresent()) {
             session.setAttribute(LOGIN_SESSION_KEY, user.get().getId());
         } else {
             throw new RuntimeException("password or email not match");

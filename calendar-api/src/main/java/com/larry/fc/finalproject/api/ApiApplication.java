@@ -16,26 +16,26 @@ import java.util.List;
 @EntityScan("com.larry.fc.finalproject.core")
 @EnableJpaRepositories("com.larry.fc.finalproject.core")
 @RestController
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.larry.fc.finalproject")
 public class ApiApplication {
 
-    private final SimpleEntityRepository repository;
-
-    public ApiApplication(SimpleEntityRepository repository) {
-        this.repository = repository;
-    }
-
-    @GetMapping
-    public List<SimpleEntity> findAll() {
-        return repository.findAll();
-    }
-
-    @PostMapping("/save")
-    public SimpleEntity saveOne() {
-        final SimpleEntity e = new SimpleEntity();
-        e.setName("hello");
-        return repository.save(e);
-    }
+//    private final SimpleEntityRepository repository;
+//
+//    public ApiApplication(SimpleEntityRepository repository) {
+//        this.repository = repository;
+//    }
+//
+////    @GetMapping
+//    public List<SimpleEntity> findAll() {
+//        return repository.findAll();
+//    }
+//
+//    @PostMapping("/save")
+//    public SimpleEntity saveOne() {
+//        final SimpleEntity e = new SimpleEntity();
+//        e.setName("hello");
+//        return repository.save(e);
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(ApiApplication.class, args);
