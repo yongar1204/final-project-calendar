@@ -11,28 +11,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.Entity;
 import java.util.List;
-
-@RestController
+@EnableJpaAuditing
 @EntityScan("com.larry.fc.finalproject.core")
 @EnableJpaRepositories("com.larry.fc.finalproject.core")
+@RestController
 @SpringBootApplication
 public class ApiApplication {
 
     private final SimpleEntityRepository repository;
 
-    public ApiApplication(SimpleEntityRepository repository){
+    public ApiApplication(SimpleEntityRepository repository) {
         this.repository = repository;
     }
 
     @GetMapping
-    public List<SimpleEntity> findAll(){
+    public List<SimpleEntity> findAll() {
         return repository.findAll();
     }
 
     @PostMapping("/save")
-    public SimpleEntity saveOne(){
+    public SimpleEntity saveOne() {
         final SimpleEntity e = new SimpleEntity();
         e.setName("hello");
         return repository.save(e);
